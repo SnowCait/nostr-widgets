@@ -1,22 +1,53 @@
 {
   "name": "nostr-widgets",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.1.0",
+  "description": "Embed Nostr notes into your website.",
+  "keywords": [
+    "nostr"
+  ],
+  "homepage": "https://github.com/SnowCait/nostr-widgets",
+  "bugs": {
+    "url": "https://github.com/SnowCait/nostr-widgets/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "SnowCait",
+    "url": "https://github.com/SnowCait"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/nostr-widgets.js",
+      "require": "./dist/nostr-widgets.umd.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnowCait/nostr-widgets.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "prepare": "npm run build",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write ."
+  },
+  "dependencies": {
+    "nostr-tools": "^2.16.2",
+    "twitter-text": "^3.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
     "@sveltejs/vite-plugin-svelte": "^6.0.0",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/twitter-text": "^3.1.10",
     "eslint": "^9.32.0",
     "globals": "^16.3.0",
+    "nostr-typedef": "^0.13.0",
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",
     "svelte": "^5.35.5",
@@ -24,5 +55,9 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.0",
     "vite": "^7.0.4"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module"
 }
