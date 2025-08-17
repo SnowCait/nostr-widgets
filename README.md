@@ -5,7 +5,7 @@ Embed Nostr notes into your website.
 ## Note
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/nostr-widgets@0/dist/nostr-widgets.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/nostr-widgets/dist/nostr-widgets.js"></script>
 <nostr-note data='{...}'></nostr-note>
 ```
 
