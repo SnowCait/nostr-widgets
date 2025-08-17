@@ -150,6 +150,16 @@
       sans-serif;
   }
 
+  @media (prefers-color-scheme: dark) {
+    :host {
+      --border-color: rgb(55, 65, 81);
+      --skeleton-color: rgb(75, 85, 99);
+      --link-color: rgb(59, 130, 246);
+      --primary-color: rgb(229, 231, 235);
+      --secondary-color: rgb(156, 163, 175);
+    }
+  }
+
   article {
     border: solid 1px var(--border-color);
     padding: 12px 16px;
