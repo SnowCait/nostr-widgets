@@ -14,3 +14,12 @@ Embed Nostr notes into your website.
 | attribute | required | value     | example                                      |
 | --------- | :------: | --------- | -------------------------------------------- |
 | data      |   yes    | Note JSON | `{ "kind": 1, "id": "", "pubkey": "", ... }` |
+
+### Styles
+
+You can override styles with CSS variables.  
+See the `:host` of [Note.svelte](./src/lib/Note.svelte) for the list of variables.
+
+```html
+<nostr-note data='{...}' style="--border-color: red;"></nostr-note>
+```
