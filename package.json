@@ -1,6 +1,6 @@
 {
   "name": "nostr-widgets",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Embed Nostr notes into your website.",
   "keywords": [
     "nostr"
