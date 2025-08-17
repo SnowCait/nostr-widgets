@@ -140,6 +140,7 @@
 
 <style>
   :host {
+    --background-color: rgb(255, 255, 255);
     --border-color: rgb(207, 217, 222);
     --skeleton-color: rgb(229, 231, 235);
     --link-color: rgb(0, 111, 214);
@@ -152,6 +153,7 @@
 
   @media (prefers-color-scheme: dark) {
     :host {
+      --background-color: rgb(36, 36, 36);
       --border-color: rgb(55, 65, 81);
       --skeleton-color: rgb(75, 85, 99);
       --link-color: rgb(59, 130, 246);
@@ -168,6 +170,7 @@
     text-align: left;
     max-width: 550px;
     color: var(--primary-color);
+    background-color: var(--background-color);
   }
 
   a {
