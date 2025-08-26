@@ -46,6 +46,7 @@
     "@tsconfig/svelte": "^5.0.4",
     "@types/twitter-text": "^3.1.10",
     "eslint": "^9.32.0",
+    "eslint-plugin-svelte": "^3.11.0",
     "globals": "^16.3.0",
     "nostr-typedef": "^0.13.0",
     "prettier": "^3.6.2",
