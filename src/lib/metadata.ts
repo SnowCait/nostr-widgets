@@ -27,6 +27,7 @@ export function fetchMetadata(pubkey: string, onEvent: (event: Event) => void) {
           return;
         }
 
+        metadataEvent = event;
         onEvent(event);
       },
       oneose() {
