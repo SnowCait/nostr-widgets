@@ -16,7 +16,6 @@ export default defineConfig(({ mode }) =>
         plugins: [svelte({ compilerOptions: { customElement: true } })],
       }
     : {
-        base: "/nostr-widgets/",
         build: {
           outDir: "docs",
           emptyOutDir: true,
