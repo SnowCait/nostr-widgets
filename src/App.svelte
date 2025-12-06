@@ -1,49 +1,87 @@
 <script lang="ts">
-  import svelteLogo from "./assets/svelte.svg";
-  import viteLogo from "/vite.svg";
-  import Counter from "./lib/Counter.svelte";
+  import "./lib/index";
+  import { onMount } from "svelte";
+  import * as nip19 from "nostr-tools/nip19";
+  import { SimplePool } from "nostr-tools/pool";
+  import type { Event } from "nostr-tools/core";
+
+  const defaultRelays = [
+    "wss://relay.nostr.band/",
+    "wss://nos.lol/",
+    "wss://relay.damus.io/",
+    "wss://yabu.me/",
+  ];
+
+  let nevent = $state("");
+  let event = $state<Event | null>(null);
+
+  let code = $derived(
+    [
+      '<script type="module" src="https://cdn.jsdelivr.net/npm/nostr-widgets/dist/nostr-widgets.js"><\/script>',
+      `<nostr-note data='${JSON.stringify(event).replaceAll("'", "&#39;")}'></nostr-note>`,
+    ].join(""),
+  );
+
+  onMount(async () => {
+    const params = new URLSearchParams(window.location.search);
+    nevent = params.get("nevent") ?? "";
+    try {
+      const result = nip19.decode(nevent.trim());
+      if (result.type !== "nevent") {
+        return;
+      }
+      const { id, relays } = result.data;
+      const pool = new SimplePool();
+      event = await pool.get([...(relays ?? []), ...defaultRelays], {
+        ids: [id],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  });
 </script>
 
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <h1>Nostr Widgets</h1>
+  <p>Embed Nostr notes into your website.</p>
 
-  <div class="card">
-    <Counter />
-  </div>
+  <form>
+    <input
+      type="text"
+      name="nevent"
+      placeholder="nevent1..."
+      bind:value={nevent}
+    />
+    <input type="submit" value="Show" />
+  </form>
 
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  {#if event}
+    <nostr-note data={JSON.stringify(event)}></nostr-note>
+    <section>
+      <button onclick={() => navigator.clipboard.writeText(code)}>
+        Copy code
+      </button>
+      <textarea>{code}</textarea>
+    </section>
+  {/if}
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  form,
+  section {
+    margin: 2rem auto;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+
+  input {
+    padding: 0.5rem;
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
+
+  input[type="text"] {
+    width: 500px;
   }
-  .read-the-docs {
-    color: #888;
+
+  textarea {
+    width: 100%;
+    height: 10rem;
   }
 </style>
