@@ -25,6 +25,9 @@
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     nevent = params.get("nevent") ?? "";
+    if (!nevent) {
+      return;
+    }
     try {
       const result = nip19.decode(nevent.trim());
       if (result.type !== "nevent") {
@@ -66,6 +69,14 @@
   {/if}
 </main>
 
+<footer>
+  <a
+    href="https://github.com/SnowCait/nostr-widgets"
+    target="_blank"
+    rel="noopener noreferrer">GitHub</a
+  >
+</footer>
+
 <style>
   form,
   section {
@@ -83,5 +94,9 @@
   textarea {
     width: 100%;
     height: 10rem;
+  }
+
+  footer a {
+    color: gray;
   }
 </style>
